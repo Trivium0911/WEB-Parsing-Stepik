@@ -16,7 +16,8 @@ from bs4 import BeautifulSoup
 with open('res.csv', 'w', encoding='UTF-8', newline='') as file:
     writer = csv.writer(file, delimiter=';')
     writer.writerow([
-        'Наименование', 'Бренд', 'Форм-фактор', 'Ёмкость', 'Объём буф. памяти', 'Цена'])
+        'Наименование', 'Бренд', 'Форм-фактор', 'Ёмкость', 'Объём буф. памяти', 'Цена'
+    ])
 
 url = 'http://parsinger.ru/html/index4_page_1.html'
 
