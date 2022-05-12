@@ -12,14 +12,17 @@ import csv
 import requests
 from bs4 import BeautifulSoup
 
+
 def get_soup(url):
     response = requests.get(url)
     response.encoding = 'utf-8-sig'
     return BeautifulSoup(response.text, 'lxml')
 
+
 def get_list_with_links(linktext, elem, classname):
     shema = 'http://parsinger.ru/html/'
     return [f"{shema}{link['href']}" for link in linktext.find(elem, class_=classname).find_all('a')]
+
 
 with open('res.csv', 'w', encoding='utf-8-sig', newline='') as file:
     writer = csv.writer(file, delimiter=';')
