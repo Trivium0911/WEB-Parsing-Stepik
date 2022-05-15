@@ -27,13 +27,14 @@ shem = 'http://parsinger.ru/html/'
 res_json = []
 soup = get_soup(link)
 navi_links = get_list_with_links(shem, soup, 'div', 'nav_menu')
-for page in navi_links:
-    pagen_soup = get_soup(page)
+for goods in navi_links:
+    pagen_soup = get_soup(goods)
     page_links = get_list_with_links(shem, pagen_soup, 'div', 'pagen')
     for page in page_links:
-        name = [x.text.strip() for x in soup.find_all('a', class_='name_item')]
-        description = [x.text.strip().split('\n') for x in soup.find_all('div', class_='description')]
-        price = [x.text for x in soup.find_all('p', class_='price')]
+        page_soup = get_soup(page)
+        name = [x.text.strip() for x in page_soup.find_all('a', class_='name_item')]
+        description = [x.text.strip().split('\n') for x in page_soup.find_all('div', class_='description')]
+        price = [x.text for x in page_soup.find_all('p', class_='price')]
         for list_item, price_item, name in zip(description, price, name):
             res_json.append({
                 'name': name,

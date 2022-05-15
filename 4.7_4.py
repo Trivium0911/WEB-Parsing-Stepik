@@ -30,13 +30,16 @@ soup = get_soup(link)
 page_links = get_list_with_links(shem, soup, 'div', 'pagen')
 for page in page_links:
     name = [x.text.strip() for x in soup.find_all('a', class_='name_item')]
-    description = [x.text.strip().replace("\n", '. ') for x in soup.find_all('div', class_='description')]
+    description = [x.text.strip().split('\n') for x in soup.find_all('div', class_='description')]
     price = [x.text for x in soup.find_all('p', class_='price')]
     for list_item, price_item, name in zip(description, price, name):
         result_json.append({
-            'name': name,
-            'description': list_item.replace("  ", " ").replace(" . ", ". "),
-            'price': price_item
+             'name': name,
+             'brand': [x.split(':')[1] for x in list_item][0].strip(),
+             'type': [x.split(':')[1] for x in list_item][1].strip(),
+             'connect': [x.split(':')[1] for x in list_item][2].strip(),
+             'game': [x.split(':')[1] for x in list_item][3].strip(),
+             'price': price_item
 
         })
 
