@@ -27,7 +27,6 @@ link = 'http://parsinger.ru/html/index1_page_1.html'
 shem = 'http://parsinger.ru/html/'
 res_json = []
 soup = get_soup(link)
-count = 0
 navi_links = get_list_with_links(shem, soup, 'div', 'nav_menu')
 for goods in navi_links:
     pagen_soup = get_soup(goods)
@@ -50,5 +49,5 @@ for goods in navi_links:
                     'link': p_link
                     })
 
-            with open('res.json', 'w', encoding='utf-8') as file:
-                json.dump(res_json, file, indent=4, ensure_ascii=False)
+with open('res.json', 'w', encoding='utf-8') as file:
+    json.dump(res_json, file, indent=4, ensure_ascii=False)
