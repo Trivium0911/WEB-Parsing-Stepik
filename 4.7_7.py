@@ -37,7 +37,7 @@ for goods in navi_links:
         for p_link in product_links:
             p_soup = get_soup(p_link)
             descr_positions = p_soup.find('ul', id='description').find_all('li')
-            desc = {li['id']: li.text.split(':')[1].strip() for li in descr_positions}
+            desc = {li['id']: li.text.split(': ')[-1].strip() for li in descr_positions}
             res_json.append({
                     'categories': p_link.split("/")[4],
                     'name': p_soup.find('p', id='p_header').text.strip(),
