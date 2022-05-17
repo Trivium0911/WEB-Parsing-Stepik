@@ -20,4 +20,4 @@ with webdriver.Chrome() as browser:
         elem.click()
     browser.find_element(By.CLASS_NAME, "btn").click()
     time.sleep(2)
-    print(browser.find_element(By.ID,"result").text)
+    print(browser.find_element(By.ID, "result").text)
