@@ -26,5 +26,4 @@ with webdriver.Chrome() as browser:
         ans = browser.find_element(By.ID, f"result{elem_id}")
         if ans.text != '':
                 res.append(int(ans.text))
-                time.sleep(1)
 print(sum(res))
