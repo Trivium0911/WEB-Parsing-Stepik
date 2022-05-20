@@ -9,7 +9,6 @@
 
 """
 
-import time
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
@@ -17,9 +16,7 @@ from selenium.webdriver.common.action_chains import ActionChains
 
 with webdriver.Chrome() as browser:
     url = 'http://parsinger.ru/infiniti_scroll_3/'
-
     browser.get(url)
-    time.sleep(1000000)
     browser.set_window_size(1024, 720)
     action = ActionChains(browser)
     last_elem = browser.find_element(By.ID, 'scroll-container_5')
@@ -37,4 +34,3 @@ with webdriver.Chrome() as browser:
             break
 
 print(sum(res))
-
