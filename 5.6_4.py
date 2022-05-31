@@ -16,7 +16,7 @@ from selenium.webdriver.common.by import By
 with webdriver.Chrome() as browser:
     browser.get('http://parsinger.ru/blank/modal/4/index.html')
     check_btn = browser.find_element(By.ID, "check")
-    pins = [i.text for i in browser.find_element(By.CLASS_NAME, 'main').find_elements(By.CLASS_NAME, "pin")]
+    pins = [i.text for i in browser.find_elements(By.CLASS_NAME, "pin")]
     for pin in pins:
         check_btn.click()
         promt = browser.switch_to.alert
