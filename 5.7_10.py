@@ -16,9 +16,9 @@ with webdriver.Chrome() as browser:
     res = []
     browser.get('http://parsinger.ru/blank/3/index.html')
     time.sleep(1)
-    for btn in browser.find_elements(By.CLASS_NAME, "buttons"):
-        btn.click()
-    for x in range(len(browser.window_handles)):
+    [btn.click() for btn in browser.find_elements(By.CLASS_NAME, "buttons")]
+    tabs = browser.window_handles
+    for x in range(len(tabs)):
         browser.switch_to.window(browser.window_handles[x])
         time.sleep(.2)
         title = browser.execute_script("return document.title;")
