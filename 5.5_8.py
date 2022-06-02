@@ -24,7 +24,6 @@ with webdriver.Chrome() as browser:
         expiry = int(cookies[0]['expiry'])
         dct[f"{main_url}{i}.html"] = expiry
         browser.back()
-
     for k, v in dct.items():
         if v == max(dct.values()):
             browser.get(k)
