@@ -1,5 +1,5 @@
 """
-                                     5.5 Скроллинг страниц 4
+                                     5.6 Скроллинг страниц 4
 Когда вы хотите взаимодействовать с элементом который визуально перекрыт другим элементом, вы получите ошибку.
 
 selenium.common.exceptions.ElementClickInterceptedException: Message: element click intercepted: Element
