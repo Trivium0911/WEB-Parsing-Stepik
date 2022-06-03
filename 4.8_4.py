@@ -1,22 +1,52 @@
 """
-                                    4.8 Парсим JSON
+                            4.8 Сохраняем результат в Excel 4
 
-Используйте полученный по ссылке JSON (http://parsinger.ru/downloads/get_json/res.json)
-чтоб посчитать стоимость товаров в каждой отдельной категории.
+Напишите код который собирает данные в категории HDD (http://parsinger.ru/html/index4_page_1.html) со всех 4х страниц и сохраняет всё в таблицу, по примеру предыдущего степа.
 
-На вход ожидается словарь. {'watch': N, 'mobile': N, 'mouse': N, 'hdd': N, 'headphones': N} где N это общая стоимость товаров в категории.
+Заголовки :  Наименование, Бренд, Форм-фактор, Ёмкость, Объём буф. памяти, Цена
+
 
 """
 
 
+import csv
 import requests
+from bs4 import BeautifulSoup
 
-url = 'http://parsinger.ru/downloads/get_json/res.json'
+with open('res.csv', 'w', encoding='utf-8-sig', newline='') as file:
+    writer = csv.writer(file, delimiter=';')
+    writer.writerow([
+        'Наименование', 'Бренд', 'Форм-фактор', 'Ёмкость', 'Объём буф. памяти', 'Цена'
+    ])
 
-response = requests.get(url=url).json()
-res_dct = {'watch': 0, 'mobile': 0, 'mouse': 0, 'hdd': 0, 'headphones': 0}
-for item in response:
-    for key in res_dct.keys():
-        if item['categories'] == key:
-            res_dct[key] += int(item['price'].replace(" руб", '')) * int(item['count'])
-print(res_dct)
+    url = 'http://parsinger.ru/html/index4_page_1.html'
+
+    response = requests.get(url=url)
+    response.encoding = 'utf-8-sig'
+    soup = BeautifulSoup(response.text, 'lxml')
+    shema = 'http://parsinger.ru/html/'
+
+
+    links = [f"{shema}{link['href']}" for link in soup.find('div', class_='pagen').find_all('a')]
+
+    for link in links:
+        name = [x.text.strip() for x in soup.find_all('a', class_='name_item')]
+        description = [x.text.split('\n') for x in soup.find_all('div', class_='description')]
+        price = [x.text for x in soup.find_all('p', class_='price')]
+
+        for item, descr, price in zip(name, description, price):
+            res = []
+            flatten = item, [x.split(':')[1].strip() for x in descr if x], price
+            for x in flatten:
+                if isinstance(x, list):
+                    for i in x:
+                        res.append(i)
+                else:
+                    res.append(x)
+
+
+            writer = csv.writer(file, delimiter=';')
+            writer.writerow(res)
+
+
+
