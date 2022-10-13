@@ -26,7 +26,7 @@ res = []
 for link in pagen:
     resp = requests.get(url=link)
     resp.encoding = 'utf-8'
-    sp = BeautifulSoup(resp.text,'lxml')
+    sp = BeautifulSoup(resp.text, 'lxml')
     res.append([i.text for i in sp.find_all('a', class_='name_item')])
 
 print(res)
