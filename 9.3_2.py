@@ -21,7 +21,7 @@ def solve_captcha() -> str:
     job = client.createTask(task)
     job.join()
     result = job.get_captcha_text()
-    return result if (len(result) != 0 or result is None) \
+    return result if (len(result) != 0 or result is not None) \
         else job.report_incorrect()
 
 
